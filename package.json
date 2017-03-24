@@ -1,6 +1,6 @@
 {
   "name": "remark-yaml-meta",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Extract YAML front-matter from markdown.",
   "license": "MIT",
   "keywords": [
@@ -10,9 +10,6 @@
     "settings",
     "remark"
   ],
-  "dependencies": {
-    "js-yaml": "^3.5.2"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/akagomez/remark-yaml-meta.git"
@@ -22,41 +19,54 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
   ],
-  "engines": {
-    "node": ">=0.10.0"
-  },
   "files": [
     "index.js"
   ],
+  "dependencies": {
+    "js-yaml": "^3.5.2"
+  },
   "devDependencies": {
-    "browserify": "^13.0.0",
-    "eslint": "^2.0.0",
+    "browserify": "^14.0.0",
     "esmangle": "^1.0.0",
-    "istanbul": "^0.4.0",
-    "jscs": "^3.0.0",
-    "jscs-jsdoc": "^2.0.0",
-    "remark": "^5.0.0",
-    "remark-cli": "^1.0.0",
-    "remark-comment-config": "^4.0.0",
-    "remark-github": "^5.0.0-alpha.1",
-    "remark-html": "^4.0.0",
-    "remark-lint": "^4.0.0",
-    "remark-slug": "^4.0.0",
-    "remark-usage": "^4.0.0-alpha.1",
-    "remark-validate-links": "^4.0.0-alpha.1",
+    "nyc": "^10.0.0",
+    "remark": "^7.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-html": "^6.0.0",
+    "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.0.0",
-    "unified": "^4.1.2"
+    "unified": "^6.0.0",
+    "xo": "^0.18.0"
   },
   "scripts": {
     "build-bundle": "browserify --no-builtins index.js -s remarkYAMLConfig > remark-yaml-meta.js",
     "build-mangle": "esmangle remark-yaml-meta.js > remark-yaml-meta.min.js",
     "build-md": "remark . --quiet --frail",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "lint": "npm run lint-api && npm run lint-style",
+    "lint": "xo",
     "test-api": "node test.js",
-    "test-coverage": "istanbul cover test.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "rules": {
+      "guard-for-in": "off",
+      "no-eq-null": "off",
+      "eqeqeq": "off"
+    },
+    "ignores": [
+      "remark-yaml-meta.js",
+      "remark-yaml-meta.min.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": ["preset-wooorm"]
   }
 }

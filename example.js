@@ -3,12 +3,12 @@ var remark = require('remark');
 var metaPlugin = require('./index.js');
 
 // Process:
-var file = remark().use(metaPlugin).process([
-    '---',
-    'foo:',
-    '  bar: true',
-    '---',
-    ''
+var file = remark().use(metaPlugin).processSync([
+  '---',
+  'foo:',
+  '  bar: true',
+  '---',
+  ''
 ].join('\n'));
 
 // Yields:
