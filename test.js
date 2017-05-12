@@ -17,13 +17,13 @@ var metaPlugin = require('./');
 
 test('remark-yaml-meta', function (t) {
     t.equal(
-        remark().use(metaPlugin).process('# Foo bar\n').toString(),
+        remark().use(metaPlugin).processSync('# Foo bar\n').toString(),
         '# Foo bar\n',
         'Should not fail without yaml'
     );
 
     t.equal(
-        remark().use(html).use(metaPlugin).process([
+        remark().use(html).use(metaPlugin).processSync([
             '---',
             'foo: bar',
             '---',
@@ -33,7 +33,7 @@ test('remark-yaml-meta', function (t) {
     );
 
     t.equal(
-        remark().use(html).use(metaPlugin).process([
+        remark().use(html).use(metaPlugin).processSync([
             '---',
             'foo: bar',
             '---',
@@ -46,7 +46,7 @@ test('remark-yaml-meta', function (t) {
     );
 
     t.deepEqual(
-        Object.keys(remark().use(html).use(metaPlugin).process([
+        Object.keys(remark().use(html).use(metaPlugin).processSync([
             '---',
             'foo: bar',
             'bar: foo',
@@ -57,7 +57,7 @@ test('remark-yaml-meta', function (t) {
     );
 
     t.equal(
-        remark().use(html).use(metaPlugin).process([
+        remark().use(html).use(metaPlugin).processSync([
             '---',
             'foo:',
             '  bar: nested',
