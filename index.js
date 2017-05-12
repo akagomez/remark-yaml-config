@@ -56,12 +56,10 @@ function factory(original) {
 
 /**
  * Modify remark to read configuration from comments.
- *
- * @param {Unified} processor - Instance.
  */
-function attacher(processor) {
-    var Parser = processor.Parser;
-    var Compiler = processor.Compiler;
+function attacher() {
+    var Parser = this.Parser;
+    var Compiler = this.Compiler;
     var parser = Parser && Parser.prototype.blockTokenizers;
     var compiler = Compiler && Compiler.prototype.visitors;
 
